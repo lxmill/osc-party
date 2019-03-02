@@ -1,0 +1,25 @@
+#N canvas 1240 84 666 418 10;
+#X obj 42 104 unpackOSC;
+#X msg 42 32 status;
+#X obj 141 131 print;
+#X obj 45 159 routeOSC /1/push1;
+#X obj 47 194 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 42 57 udpreceive 5050;
+#X obj 498 77 packOSC;
+#X msg 360 88 disconnect;
+#X obj 378 167 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 380 143 udpsend;
+#X msg 498 49 send /1/push1;
+#X msg 380 118 connect 192.168.1.133 5050;
+#X connect 0 0 3 0;
+#X connect 0 0 2 0;
+#X connect 1 0 5 0;
+#X connect 3 0 4 0;
+#X connect 5 0 0 0;
+#X connect 6 0 9 0;
+#X connect 7 0 9 0;
+#X connect 9 0 8 0;
+#X connect 10 0 6 0;
+#X connect 11 0 9 0;
