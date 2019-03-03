@@ -1,0 +1,28 @@
+#N canvas 5 260 577 272 10;
+#X msg 24 86 status;
+#X obj 24 155 unpackOSC;
+#X obj 113 184 print;
+#X obj 24 235 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 24 208 routeOSC /1/push1;
+#X msg 375 168 disconnect;
+#X obj 347 215 udpsend;
+#X obj 347 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 347 115 packOSC;
+#X msg 347 90 send /1/push1;
+#X text 19 56 RECEIVE OSC MESSAGE;
+#X text 343 57 SEMD OSC MESSAGE;
+#X obj 24 119 udpreceive 5051;
+#X msg 373 192 connect 192.168.1.96 5051;
+#X text 19 13 pi@momo;
+#X connect 0 0 12 0;
+#X connect 1 0 2 0;
+#X connect 1 0 4 0;
+#X connect 4 0 3 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 6 0;
+#X connect 9 0 8 0;
+#X connect 12 0 1 0;
+#X connect 13 0 6 0;
