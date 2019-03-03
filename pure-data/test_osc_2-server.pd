@@ -1,0 +1,25 @@
+#N canvas 1179 258 572 274 12;
+#X obj 106 79 udpreceive 5051;
+#X obj 444 79 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 392 24 disconnect;
+#X obj 444 189 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 392 134 disconnect;
+#X obj 106 189 udpreceive 5052;
+#X text 25 188 pi@mosso;
+#X obj 376 79 udpsend;
+#X obj 375 189 udpsend;
+#X msg 400 47 connect momo 5051;
+#X msg 404 158 connect mosso 5052;
+#X text 25 78 pi@momo;
+#X obj 289 217 route;
+#X text 24 19 @server;
+#X connect 0 0 8 0;
+#X connect 2 0 7 0;
+#X connect 4 0 8 0;
+#X connect 5 0 7 0;
+#X connect 7 0 1 0;
+#X connect 8 0 3 0;
+#X connect 9 0 7 0;
+#X connect 10 0 8 0;

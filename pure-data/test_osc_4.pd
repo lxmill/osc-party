@@ -1,0 +1,50 @@
+#N canvas 633 147 894 469 12;
+#X obj 669 398 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 601 398 udpsend;
+#X msg 637 343 disconnect;
+#X obj 601 316 packOSC;
+#X obj 692 210 hsl 100 30 0 254 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 2500 0;
+#X obj 74 114 unpackOSC;
+#X msg 615 365 connect 192.168.1.105 8888;
+#X obj 599 234 i;
+#X msg 524 72 sendtyped /led/onoff Tif;
+#X msg 533 103 sendtyped /led/onoff Fif;
+#X obj 578 143 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 576 182 send /led/onoff \$1;
+#X msg 601 286 send /led/fade \$1;
+#X obj 74 83 udpreceive 8888;
+#X text 69 35 TALK TO ARDUINO;
+#X obj 294 206 routeOSC /led;
+#X obj 348 270 hsl 100 30 0 254 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 2494 0;
+#X obj 294 268 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 294 237 routeOSC /state /val;
+#X obj 77 270 hsl 100 30 0 1023 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 8419 0;
+#X obj 74 206 routeOSC /ldr;
+#X obj 74 237 routeOSC /val;
+#X text 81 174 light sensor;
+#X text 301 174 feedback;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X connect 4 0 7 0;
+#X connect 5 0 15 0;
+#X connect 5 0 20 0;
+#X connect 6 0 1 0;
+#X connect 7 0 12 0;
+#X connect 8 0 3 0;
+#X connect 9 0 3 0;
+#X connect 10 0 11 0;
+#X connect 11 0 3 0;
+#X connect 12 0 3 0;
+#X connect 13 0 5 0;
+#X connect 15 0 18 0;
+#X connect 18 0 17 0;
+#X connect 18 1 16 0;
+#X connect 20 0 21 0;
+#X connect 21 0 19 0;
