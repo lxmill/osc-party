@@ -22,7 +22,7 @@ byte mac[] = {
 int local_port = 8888;
 int remote_port = 8888;
 
-EthernetUdp udp;
+EthernetUDP udp;
 
 
 void setup(){
