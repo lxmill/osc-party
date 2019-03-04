@@ -1,56 +1,79 @@
 /*
-loosely based on trippy ligtning's touchOSC arduino example
-https://trippylighting.com/teensy-arduino-ect/touchosc-and-arduino-oscuino/
+based on the ESP8266ReceiveMessage example from OSC for Arduino library
+https://github.com/CNMAT/OSC/tree/master/examples/ESP8266ReceiveMessage
 */
 
-#include <SPI.h>
-#include <Ethernet.h>
-#include <EthernetUdp.h>
-#include <OSCBundle.h>
+#if defined(ESP8266)
+#include <ESP8266WiFi.h>
+#else
+#include <WiFi.h>
+#endif
+#include <WiFiUdp.h>
+#include <OSCMessage.h>
 
-#define LED_PIN 5
+char ssid[] = "********";       // your network SSID (name)
+char pass[] = "********";       // your network password
+
+WiFiUDP udp;
+const IPAddress remote_ip(192,168,1,96);    // destination ip for messages (commas, not decimal points!)
+const unsigned int remote_port = 8888;      // where to send messages to at destination
+const unsigned int local_port = 8888;       // where to listen for messages
+
+#define LED_PIN 3
 #define LDR_PIN A0
 
 bool led_on = false;
 int led_val = 0;
 int ldr_val = 0;
 
-// mac address may be written on the ethernet shield somewhere, otherwise choose your own
-byte mac[] = { 
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED }; 
 
-int local_port = 8888;
-int remote_port = 8888;
+void setup() {
 
-EthernetUDP udp;
+  Serial.begin(115200);
 
+  // Connect to WiFi network
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, pass);
 
-void setup(){
-
-  Serial.begin(9600);
-
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("connection failed");
-    // stop here if failed to establish connection
-    while(true);
+  while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
   }
+  Serial.println("");
 
-  // print your local IP address:
-  Serial.print("Arduino IP address: ");
-  Serial.println(Ethernet.localIP());
- 
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  Serial.println("Starting UDP");
   udp.begin(local_port);
+  Serial.print("Local port: ");
+#ifdef ESP32
+  Serial.println(local_port);
+#else
+  Serial.println(udp.localPort());
+#endif
 
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
+
 }
 
 
-void loop(){
-  osc_receive();
-  led_update();
-  ldr_update();
+void loop() {
 
+  // listen for osc messages
+  osc_receive();
+
+  // update the led state
+  led_update();
+
+  // update the ldr readings and stream these over osc
+  ldr_update();
+  // slow down the loop to not overload the stream
   delay(10);
 } 
 
@@ -81,10 +104,8 @@ void led_onoff(OSCMessage &msg, int addrOffset){
   led_on = msg.getInt(0);
 
   if (led_on) {
-    analogWrite(LED_PIN, led_val);
     Serial.println("LED on");
   } else {
-    digitalWrite(LED_PIN, LOW);
     Serial.println("LED off");
   }
 
@@ -93,7 +114,7 @@ void led_onoff(OSCMessage &msg, int addrOffset){
   msg_out.add(led_on);
 
   // send the message
-  udp.beginPacket(udp.remoteIP(), remote_port);
+  udp.beginPacket(remote_ip, remote_port);
   msg_out.send(udp);
   udp.endPacket(); // mark the end of the OSC Packet
   msg_out.empty(); // free space occupied by message
@@ -109,7 +130,7 @@ void led_fade(OSCMessage &msg, int addrOffset ){
   OSCMessage msg_out("/led/val");  
   msg_out.add(led_val);
   
-  udp.beginPacket(udp.remoteIP(), remote_port);
+  udp.beginPacket(remote_ip, remote_port);
   msg_out.send(udp);
   udp.endPacket();
   msg_out.empty();
@@ -130,11 +151,11 @@ void ldr_update() {
 
   Serial.print("LDR val = ");
   Serial.println(ldr_val);
-
+  
   OSCMessage msg_out("/ldr/val");  
   msg_out.add(ldr_val);
   
-  udp.beginPacket(udp.remoteIP(), remote_port);
+  udp.beginPacket(remote_ip, remote_port);
   msg_out.send(udp);
   udp.endPacket();
   msg_out.empty();
