@@ -1,0 +1,185 @@
+#N canvas 4 637 1905 390 12;
+#X obj 10 10 import mrpeach;
+#X obj 1264 88 packOSC;
+#X obj 1506 120 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 120 udpsend;
+#X msg 1336 88 disconnect;
+#X obj 11 100 unpackOSC;
+#X obj 11 129 routeOSC /id;
+#X obj 216 42 print;
+#X obj 304 265 hsl 100 30 0 1023 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 1500 0;
+#X obj 299 221 routeOSC /val;
+#X obj 434 265 hsl 100 30 0 1023 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 406 0;
+#X obj 429 221 routeOSC /val;
+#X obj 564 265 hsl 100 30 0 1023 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 4035 0;
+#X obj 559 221 routeOSC /val;
+#X obj 12 160 routeOSC /titan /dione /arduino /esp /feather /feather_esp
+/mosso /momo, f 136;
+#X obj 694 265 hsl 100 30 0 1023 0 0 empty empty empty -2 -8 0 10 -260097
+-1 -1 9900 0;
+#X obj 689 221 routeOSC /val;
+#X obj 819 221 routeOSC /metro;
+#X obj 819 263 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 959 221 routeOSC /metro;
+#X obj 959 263 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 11 41 udpreceive 8888;
+#X obj 489 43 print;
+#X text 1780 101 titan;
+#X text 1781 131 dione;
+#X text 1781 161 arduino;
+#X text 1780 191 esp;
+#X text 1780 221 feather;
+#X text 1781 252 feather_esp;
+#X text 1781 281 mosso;
+#X text 1780 311 momo;
+#X obj 1506 150 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 150 udpsend;
+#X obj 1506 180 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 180 udpsend;
+#X obj 1506 210 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 210 udpsend;
+#X obj 1506 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 240 udpsend;
+#X obj 1506 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 270 udpsend;
+#X obj 1506 300 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 300 udpsend;
+#X obj 1506 330 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 1438 330 udpsend;
+#X msg 1121 42 300;
+#X obj 1163 156 print;
+#X msg 1555 309 connect 192.168.1.133 8888;
+#X msg 1555 278 connect 192.168.1.119 8888;
+#X msg 1555 129 connect 192.168.1.90 8888;
+#X msg 1554 99 connect 192.168.1.89 8888;
+#X obj 1530 49 bng 30 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 1161 42 200;
+#X msg 1202 43 100;
+#X msg 1241 42 50;
+#X obj 1366 26 hsl 128 15 10 50 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 12700 1;
+#X floatatom 1418 62 5 0 0 0 - - -, f 5;
+#X msg 1555 189 connect 192.168.1.135 8888;
+#X msg 1557 250 connect 192.168.1.137 8888;
+#X msg 1555 219 connect 192.168.1.105 8888;
+#X text 18 191 titan;
+#X text 164 193 dione;
+#X text 307 195 arduino;
+#X text 438 194 esp;
+#X text 567 195 feather;
+#X text 700 193 feather_esp;
+#X text 834 194 mosso;
+#X text 971 194 momo;
+#X msg 1555 159 connect 192.168.1.199 8888;
+#X obj 19 221 routeOSC /metro;
+#X obj 19 263 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 159 221 routeOSC /metro;
+#X obj 159 263 tgl 30 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 1121 89 send /led/fade \$1;
+#X obj 1157 262 hsl 128 15 1 15 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 8900 1;
+#X msg 1178 231 15;
+#X obj 303 307 bng 30 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 433 307 bng 30 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 563 307 bng 30 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 693 307 bng 30 250 50 0 empty empty empty 17 7 0 10 -4034 -1
+-1;
+#X obj 1345 53 i;
+#X obj 1140 217 i;
+#X floatatom 1096 261 5 0 0 0 - - -, f 5;
+#X connect 1 0 3 0;
+#X connect 1 0 32 0;
+#X connect 1 0 34 0;
+#X connect 1 0 36 0;
+#X connect 1 0 38 0;
+#X connect 1 0 40 0;
+#X connect 1 0 42 0;
+#X connect 1 0 44 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X connect 4 0 32 0;
+#X connect 4 0 34 0;
+#X connect 4 0 36 0;
+#X connect 4 0 38 0;
+#X connect 4 0 40 0;
+#X connect 4 0 42 0;
+#X connect 4 0 44 0;
+#X connect 5 0 6 0;
+#X connect 6 0 14 0;
+#X connect 9 0 8 0;
+#X connect 9 0 76 0;
+#X connect 11 0 10 0;
+#X connect 11 0 77 0;
+#X connect 13 0 12 0;
+#X connect 13 0 78 0;
+#X connect 14 0 69 0;
+#X connect 14 1 71 0;
+#X connect 14 2 9 0;
+#X connect 14 3 11 0;
+#X connect 14 4 13 0;
+#X connect 14 5 16 0;
+#X connect 14 6 17 0;
+#X connect 14 7 19 0;
+#X connect 16 0 15 0;
+#X connect 16 0 79 0;
+#X connect 17 0 18 0;
+#X connect 19 0 20 0;
+#X connect 21 0 5 0;
+#X connect 32 0 31 0;
+#X connect 34 0 33 0;
+#X connect 36 0 35 0;
+#X connect 38 0 37 0;
+#X connect 40 0 39 0;
+#X connect 42 0 41 0;
+#X connect 44 0 43 0;
+#X connect 45 0 73 0;
+#X connect 47 0 44 0;
+#X connect 48 0 42 0;
+#X connect 49 0 32 0;
+#X connect 50 0 3 0;
+#X connect 51 0 50 0;
+#X connect 51 0 49 0;
+#X connect 51 0 68 0;
+#X connect 51 0 57 0;
+#X connect 51 0 59 0;
+#X connect 51 0 58 0;
+#X connect 51 0 48 0;
+#X connect 51 0 47 0;
+#X connect 52 0 73 0;
+#X connect 53 0 73 0;
+#X connect 54 0 73 0;
+#X connect 54 0 55 0;
+#X connect 55 0 80 0;
+#X connect 57 0 36 0;
+#X connect 58 0 40 0;
+#X connect 59 0 38 0;
+#X connect 68 0 34 0;
+#X connect 69 0 70 0;
+#X connect 71 0 72 0;
+#X connect 73 0 1 0;
+#X connect 73 0 46 0;
+#X connect 74 0 81 0;
+#X connect 75 0 74 0;
+#X connect 80 0 56 0;
+#X connect 80 0 73 0;
+#X connect 81 0 82 0;
+#X connect 81 0 73 0;
