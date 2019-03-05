@@ -15,9 +15,9 @@ char ssid[] = "********";       // your network SSID (name)
 char pass[] = "********";       // your network password
 
 WiFiUDP udp;
-const IPAddress remote_ip(192,168,1,96);    // destination ip for messages (commas, not decimal points!)
-const unsigned int remote_port = 8888;      // where to send messages to at destination
-const unsigned int local_port = 8888;       // where to listen for messages
+IPAddress remote_ip(192,168,1,96);    // destination ip for messages (commas, not decimal points!)
+int remote_port = 8888;               // where to send messages to at destination
+int local_port = 8888;                // where to listen for messages
 
 #define LED_PIN 3
 #define LDR_PIN A0
